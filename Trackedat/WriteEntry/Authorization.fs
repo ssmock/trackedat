@@ -49,8 +49,5 @@ let authorize ctx:Context =
     |> contextBodyAs<Entry>
     |> (fun entry -> entry.tenantHash)
     |> (fun hash ->
-            if tenantExists hash then
-                closeContext HttpStatusCode.Unauthorized ctx
-            else ctx)
-    |> ignore
-    ctx
+            if tenantExists hash then ctx
+            else closeContext HttpStatusCode.Unauthorized ctx)
